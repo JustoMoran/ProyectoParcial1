@@ -11,10 +11,12 @@ package proyecto.parcial.pkg1;
  */
 
 public abstract class Notificacion {
-    public boolean estadoActivo=true;
+    public boolean estadoActivo;
     
     //Constructor por defecto
-    public Notificacion(){}
+    public Notificacion(){
+        estadoActivo = true;
+     }
     
     public abstract void mostrarNotificacion();
     
