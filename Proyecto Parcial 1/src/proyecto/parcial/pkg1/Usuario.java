@@ -48,6 +48,7 @@ public class Usuario {
     public boolean equals(Object o){
         if (o instanceof Usuario && o!=null){
             Usuario u= (Usuario)o;
+            // Esto se llama polimorfismo
             return (u.idUsuario==this.idUsuario);
         }else{return false;}
     }
