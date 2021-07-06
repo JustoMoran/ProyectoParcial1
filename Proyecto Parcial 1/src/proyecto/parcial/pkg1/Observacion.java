@@ -12,6 +12,8 @@ import java.text.ParseException;
  *
  * @author alber y justo
  */
+
+//Clase Observación. Asignación de del tipo que pertenece cada propiedad observable.
 public class Observacion {
     public double co;
     public double humidity;
@@ -21,6 +23,7 @@ public class Observacion {
     public double smoke;
     public Date date;
     
+    //Constructor con 7 parámetros
     public Observacion(double co, double humidity, boolean light,double lpg,boolean motion, double smoke,String date) throws ParseException{
         this.co=co;
         this.humidity=humidity;
@@ -33,7 +36,7 @@ public class Observacion {
     
     @Override
     // Método toString
-    //devuelve un con junto de String formado con la propiedad observable correspondiente  
+    //Devuelve un con junto de String formado con la propiedad observable correspondiente  
     public String toString(){
         return "Co: "+co+"; humidity: "+humidity+"; light: "+light+"; lpg: "+lpg+"; motion: "+motion+"; smoke: "+smoke+"; fecha: "+date;
     }
