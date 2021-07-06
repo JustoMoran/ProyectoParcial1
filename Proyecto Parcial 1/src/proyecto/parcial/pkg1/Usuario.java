@@ -18,10 +18,12 @@ public class Usuario {
     private String idUsuario;
     public ArrayList<Notificacion> notificaciones=new ArrayList<>();
     
+    //Constructor de una variable
     public Usuario (String idUsuario){
         this.idUsuario=idUsuario;
     }
     
+    //Método get
     public String getID(){
         return this.idUsuario;
     }
