@@ -10,7 +10,7 @@ import java.text.ParseException;
 
 /**
  *
- * @author alber
+ * @author alber y justo
  */
 public class Observacion {
     public double co;
@@ -32,6 +32,8 @@ public class Observacion {
     }
     
     @Override
+    // Método toString
+    //devuelve un con junto de String formado con la propiedad observable correspondiente  
     public String toString(){
         return "Co: "+co+"; humidity: "+humidity+"; light: "+light+"; lpg: "+lpg+"; motion: "+motion+"; smoke: "+smoke+"; fecha: "+date;
     }
