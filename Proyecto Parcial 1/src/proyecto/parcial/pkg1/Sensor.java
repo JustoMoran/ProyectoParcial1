@@ -23,7 +23,6 @@ public class Sensor {
         observaciones= this.obtenerObservaciones();
     }
     
-    
     public ArrayList<Observacion> obtenerObservaciones() throws IOException, ParseException{
         List<String> lineas = LeerFichero.leer("C:/Users/alber/Downloads/iot_telemetry_data_new.csv");
         ArrayList<Observacion> obs = new ArrayList<>();
