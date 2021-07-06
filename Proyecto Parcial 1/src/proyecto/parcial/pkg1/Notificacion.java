@@ -9,10 +9,11 @@ package proyecto.parcial.pkg1;
  *
  * @author alber
  */
+
 public abstract class Notificacion {
     public boolean estadoActivo=true;
     
-    
+    //Constructor por defecto
     public Notificacion(){}
     
     public abstract void mostrarNotificacion();
