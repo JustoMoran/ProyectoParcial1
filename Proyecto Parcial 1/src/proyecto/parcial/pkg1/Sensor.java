@@ -10,22 +10,22 @@ import java.io.IOException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author alber
  */
 public class Sensor {
     private String id;
-    ArrayList<Observacion> observaciones= new ArrayList<>();
+    private ArrayList<Observacion> observaciones;
     
-    public Sensor(String id) throws IOException, ParseException{
+    public Sensor(String id) {
         this.id=id;
-        observaciones= this.obtenerObservaciones();
     }
     
-    public ArrayList<Observacion> obtenerObservaciones() throws IOException, ParseException{
-        List<String> lineas = LeerFichero.leer("C:/Users/alber/Downloads/iot_telemetry_data_new.csv");
-        ArrayList<Observacion> obs = new ArrayList<>();
+    public void obtenerObservaciones() throws IOException, ParseException{
+        List<String> lineas = LeerFichero.leer("src/iot_telemetry_data_new.csv");
         for (String linea:lineas){
             linea.replace('"', '\0');
             String[] lineaC=linea.split(",");
@@ -38,9 +38,26 @@ public class Sensor {
                 double smoke=Double.parseDouble(lineaC[7]);
                 String date=lineaC[8];
                 Observacion o = new Observacion(co,humidity,light,lpg,motion,smoke,date);
-                obs.add(o);
-            }
-            
-        }return obs;    
+                observaciones.add(o);
+            }   
+        } 
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public ArrayList<Observacion> getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(ArrayList<Observacion> observaciones) {
+        this.observaciones = observaciones;
+    }
+    
+    
 }
