@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -162,6 +164,8 @@ public class ProyectoParcial1 {
         }
     }
     public static void generarNotificacion(){
+        Date menor = pedirFechaMenor();
+        
         
     }
     
@@ -176,12 +180,14 @@ public class ProyectoParcial1 {
         NotificacionObservable not;
         double mayor;
         double menor;
+        int priority;
         switch (obs) {
             case "1":
                 System.out.println("La variable Co usa atributos de verdad, por lo que se pide ingresar un rango numerico decimal");
                 menor = rangoMenor();
                 mayor = rangoMayor(menor);
-                Etiqueta co =  new EtiquetaRango(mayor,menor,"Co",1);
+                priority = pedirPrioridad();
+                Etiqueta co =  new EtiquetaRango(mayor,menor,"Co",priority);
                 not = new NotificacionObservable(co);
                 usuarioActual.notificaciones.add(not);               
                 break;
@@ -189,7 +195,8 @@ public class ProyectoParcial1 {
                 System.out.println("La variable Humidity usa atributos de verdad, por lo que se pide ingresar un rango numerico decimal");
                 menor = rangoMenor();
                 mayor = rangoMayor(menor);
-                Etiqueta humidity =  new EtiquetaRango(mayor,menor,"Humidity",1);
+                priority = pedirPrioridad();
+                Etiqueta humidity =  new EtiquetaRango(mayor,menor,"Humidity",priority);
                 not = new NotificacionObservable(humidity);
                 usuarioActual.notificaciones.add(not);
 
@@ -197,7 +204,8 @@ public class ProyectoParcial1 {
             case "3":
                 System.out.println("La variable Light usa atributos de verdad, por lo que se pide ingresar datos de verdad");
                 Boolean bo = observableBoolean();
-                Etiqueta luz =  new EtiquetaBool(bo,"Light",1);
+                priority = pedirPrioridad();
+                Etiqueta luz =  new EtiquetaBool(bo,"Light",priority);
                 not = new NotificacionObservable(luz);
                 usuarioActual.notificaciones.add(not);
                 break;
@@ -205,14 +213,16 @@ public class ProyectoParcial1 {
                 System.out.println("La variable Lpg usa atributos de verdad, por lo que se pide ingresar un rango numerico decimal");
                 menor = rangoMenor();
                 mayor = rangoMayor(menor);
-                Etiqueta lpg =  new EtiquetaRango(mayor,menor,"Lpg",1);
+                priority = pedirPrioridad();
+                Etiqueta lpg =  new EtiquetaRango(mayor,menor,"Lpg",priority);
                 not = new NotificacionObservable(lpg);
                 usuarioActual.notificaciones.add(not);
                 break;
             case "5":
                 System.out.println("La variable Motion usa atributos de verdad, por lo que se pide ingresar datos de verdad");
                 Boolean b = observableBoolean();
-                Etiqueta motion =  new EtiquetaBool(b,"Motion",1);
+                priority = pedirPrioridad();
+                Etiqueta motion =  new EtiquetaBool(b,"Motion",priority);
                 not = new NotificacionObservable(motion);
                 usuarioActual.notificaciones.add(not);
                 break;
@@ -220,7 +230,8 @@ public class ProyectoParcial1 {
                 System.out.println("La variable Smoke usa atributos de verdad, por lo que se pide ingresar un rango numerico decimal");
                 menor = rangoMenor();
                 mayor = rangoMayor(menor);
-                Etiqueta smoke =  new EtiquetaRango(mayor,menor,"Smoke",1);
+                priority = pedirPrioridad();
+                Etiqueta smoke =  new EtiquetaRango(mayor,menor,"Smoke",priority);
                 not = new NotificacionObservable(smoke);
                 usuarioActual.notificaciones.add(not);
                 break;
@@ -228,7 +239,8 @@ public class ProyectoParcial1 {
                 System.out.println("La variable Temperature usa atributos de verdad, por lo que se pide ingresar un rango numerico decimal");
                 menor = rangoMenor();
                 mayor = rangoMayor(menor);
-                Etiqueta temperature =  new EtiquetaRango(mayor,menor,"Temperature",1);
+                priority = pedirPrioridad();
+                Etiqueta temperature =  new EtiquetaRango(mayor,menor,"Temperature",priority);
                 not = new NotificacionObservable(temperature);
                 usuarioActual.notificaciones.add(not);
                 break;
@@ -341,6 +353,72 @@ public class ProyectoParcial1 {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+    
+    public static Date pedirFechaMenor(){
+        Date testDate = null;
+        while(true){
+            System.out.println("Introduzca la fecha menor con formato dd/mm/yyyy");
+            String fecha = entrada.nextLine();
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            String date = fecha;
+            try{
+                testDate = df.parse(date);
+                System.out.println("Ahora hemos creado un objeto date con la fecha indicada, "+testDate);
+            } catch (Exception e){ System.out.println("invalid format");}
+
+            if (!df.format(testDate).equals(date)){
+                System.out.println("invalid date!!");
+            } else {
+                System.out.println("valid date");
+                return testDate;
+            }
+        }
+    }
+    
+    public static Date pedirFechaMayor(Date menor){
+        Date testDate = null;
+        while(true){
+            System.out.println("Introduzca la fecha menor con formato dd/mm/yyyy");
+            String fecha = entrada.nextLine();
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            String date = fecha;
+            try{
+                testDate = df.parse(date);
+                System.out.println("Ahora hemos creado un objeto date con la fecha indicada, "+testDate);
+            } catch (Exception e){ System.out.println("invalid format");}
+
+            if (!df.format(testDate).equals(date)){
+                System.out.println("invalid date!!");
+            } else {
+                if(testDate.after(menor)){
+                    System.out.println("valid date");
+                    return testDate;
+                }
+                else{
+                    System.out.println("fecha no es mayor que la especificada como menor");
+                    
+                }
+                
+            }
+        }
+    }
+    
+    public static int pedirPrioridad(){
+        String prioridad = "a";
+        while (!prioridad.equals("")){
+            System.out.print("1.-Prioridad Alta\n2.-Prioridad media\n3.-Prioridad Baja\nIngrese opcion de prioridad: ");
+            if(prioridad.equals("1")){
+                return 1;
+            }
+            else if(prioridad.equals("2")){
+                return 2;
+            }
+            else if(prioridad.equals('3')){
+                return 3;
+            }
+        }
+        return 0;
     }
     
         

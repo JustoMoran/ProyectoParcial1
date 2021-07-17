@@ -7,7 +7,7 @@ package proyecto.parcial.pkg1;
 
 /**
  *
- * @author homar
+ * @author Ricardo
  */
 public class EtiquetaBool extends Etiqueta{
     
@@ -16,6 +16,11 @@ public class EtiquetaBool extends Etiqueta{
     public EtiquetaBool(boolean valor, String descripcion, int prioridad) {
         super(descripcion, prioridad);
         this.valor = valor;
+    }
+
+    @Override
+    public String toString() {
+        return "EtiquetaBool{" + "valor=" + valor + '}';
     }
     
     

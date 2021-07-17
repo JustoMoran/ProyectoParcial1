@@ -60,6 +60,11 @@ public class Sensor {
     public void setObservaciones(ArrayList<Observacion> observaciones) {
         this.observaciones = observaciones;
     }
+
+    @Override
+    public String toString() {
+        return "Sensor{" + "id=" + id + ", observaciones=" + observaciones + '}';
+    }
     
     
     

@@ -7,7 +7,7 @@ package proyecto.parcial.pkg1;
 
 /**
  *
- * @author homar
+ * @author Ricardo
  */
 public  class  NotificacionObservable  extends Notificacion{
     
@@ -31,7 +31,7 @@ public  class  NotificacionObservable  extends Notificacion{
 
     @Override
     public void mostrarNotificacion() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println(etiqueta);
     }
     
 }

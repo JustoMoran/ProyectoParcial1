@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author homar
+ * @author Ricardo
  */
 public class NotificacionDispositivo extends Notificacion{
     
@@ -24,7 +24,11 @@ public class NotificacionDispositivo extends Notificacion{
 
     @Override
     public void mostrarNotificacion() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Los sensores existentes son: ");
+        for(Sensor s: sensores){
+            System.out.println(s);
+        }
+        
     }
     
 }

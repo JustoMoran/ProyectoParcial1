@@ -7,7 +7,7 @@ package proyecto.parcial.pkg1;
 
 /**
  *
- * @author homar
+ * @author Ricardo
  */
 public class EtiquetaRango extends Etiqueta {
 
@@ -19,6 +19,11 @@ public class EtiquetaRango extends Etiqueta {
         super(descripcion, prioridad);
         this.rangoMayor = rangoMayor;
         this.rangoMenor = rangoMenor;
+    }
+
+    @Override
+    public String toString() {
+        return "EtiquetaRango{" + "rangoMayor=" + rangoMayor + ", rangoMenor=" + rangoMenor + '}';
     }
    
    

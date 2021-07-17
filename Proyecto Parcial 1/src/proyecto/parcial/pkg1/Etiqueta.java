@@ -7,7 +7,7 @@ package proyecto.parcial.pkg1;
 
 /**
  *
- * @author homar
+ * @author Ricardo
  */
 public abstract class Etiqueta {
     
@@ -18,6 +18,12 @@ public abstract class Etiqueta {
         this.descripcion = descripcion;
         this.prioridad = prioridad;
     }
+
+    @Override
+    public String toString() {
+        return "Etiqueta{" + "descripcion=" + descripcion + ", prioridad=" + prioridad + '}';
+    }
+    
     
     
     
