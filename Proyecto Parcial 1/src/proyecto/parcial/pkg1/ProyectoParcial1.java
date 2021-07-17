@@ -87,7 +87,7 @@ public class ProyectoParcial1 {
     public static void subMenu(){
         String submenu = "";
         while (!submenu.equals("4")){
-            System.out.println("1.-Programar notificaciones\n2.-Generar notificaciones\n3.-Desactivar notificaciones\n4.-Salir\nIngresar opcion: ");
+            System.out.print("1.-Programar notificaciones\n2.-Generar notificaciones\n3.-Desactivar notificaciones\n4.-Salir\nIngresar opcion: ");
             submenu  = entrada.nextLine();
             switch (submenu) {
                 case "1":
@@ -109,9 +109,9 @@ public class ProyectoParcial1 {
     public static void generarSensores() throws IOException{
         List<String> lineas = LeerFichero.leer("src/iot_telemetry_data_new.csv");
         for(String linea:lineas){
-            String linea1 =linea.replace('"','\0');
+            String linea1 = linea.replace('"','\0');
             String[] lineaCortada =linea1.split(",");
-            String idSensor=lineaCortada[1];   
+            String idSensor=lineaCortada[1];
             if(existeSensor(idSensor)==false){
                 sensores.add(new Sensor(idSensor));
             }
@@ -137,6 +137,7 @@ public class ProyectoParcial1 {
      */
     public static void cargarObservaciones(){
         for(Sensor s: sensores){
+            System.out.println(s.getId());
             try {
                 s.obtenerObservaciones();
             } catch (IOException ex) {
@@ -153,7 +154,7 @@ public class ProyectoParcial1 {
             System.out.print("1.-Notificación por propiedad observable\n2.-Notificación por dispositivo\n3.-Salir\nIngresar opcion: ");
             notif = entrada.nextLine();
             if (notif.equals("1")){
-                
+                crearNotObservable();
             }
             else if(notif.equals("2")){
                 crearNotDispositivo();
@@ -177,19 +178,20 @@ public class ProyectoParcial1 {
         double menor;
         switch (obs) {
             case "1":
-                System.out.println("La variable Co usa atributos de verdad, por lo que se pide ingresar un rango numerico");
+                System.out.println("La variable Co usa atributos de verdad, por lo que se pide ingresar un rango numerico decimal");
                 menor = rangoMenor();
                 mayor = rangoMayor(menor);
                 Etiqueta co =  new EtiquetaRango(mayor,menor,"Co",1);
                 not = new NotificacionObservable(co);
-                usuarioActual.notificaciones.add(not);
-                
+                usuarioActual.notificaciones.add(not);               
                 break;
             case "2":
-                System.out.println("La variable Humidity usa atributos de verdad, por lo que se pide ingresar un rango numerico");
+                System.out.println("La variable Humidity usa atributos de verdad, por lo que se pide ingresar un rango numerico decimal");
                 menor = rangoMenor();
                 mayor = rangoMayor(menor);
                 Etiqueta humidity =  new EtiquetaRango(mayor,menor,"Humidity",1);
+                not = new NotificacionObservable(humidity);
+                usuarioActual.notificaciones.add(not);
 
                 break;
             case "3":
@@ -200,7 +202,12 @@ public class ProyectoParcial1 {
                 usuarioActual.notificaciones.add(not);
                 break;
             case "4":
-                System.out.println("La variable Lpg usa atributos de verdad, por lo que se pide ingresar un rango numerico");
+                System.out.println("La variable Lpg usa atributos de verdad, por lo que se pide ingresar un rango numerico decimal");
+                menor = rangoMenor();
+                mayor = rangoMayor(menor);
+                Etiqueta lpg =  new EtiquetaRango(mayor,menor,"Lpg",1);
+                not = new NotificacionObservable(lpg);
+                usuarioActual.notificaciones.add(not);
                 break;
             case "5":
                 System.out.println("La variable Motion usa atributos de verdad, por lo que se pide ingresar datos de verdad");
@@ -210,12 +217,20 @@ public class ProyectoParcial1 {
                 usuarioActual.notificaciones.add(not);
                 break;
             case "6":
-                System.out.println("La variable Smoke usa atributos de verdad, por lo que se pide ingresar un rango numerico");
-
+                System.out.println("La variable Smoke usa atributos de verdad, por lo que se pide ingresar un rango numerico decimal");
+                menor = rangoMenor();
+                mayor = rangoMayor(menor);
+                Etiqueta smoke =  new EtiquetaRango(mayor,menor,"Smoke",1);
+                not = new NotificacionObservable(smoke);
+                usuarioActual.notificaciones.add(not);
                 break;
             case "7":
-                System.out.println("La variable Temperature usa atributos de verdad, por lo que se pide ingresar un rango numerico");
-
+                System.out.println("La variable Temperature usa atributos de verdad, por lo que se pide ingresar un rango numerico decimal");
+                menor = rangoMenor();
+                mayor = rangoMayor(menor);
+                Etiqueta temperature =  new EtiquetaRango(mayor,menor,"Temperature",1);
+                not = new NotificacionObservable(temperature);
+                usuarioActual.notificaciones.add(not);
                 break;
             default:
                 System.out.println("Opcion ingresada no existente");
@@ -224,7 +239,7 @@ public class ProyectoParcial1 {
     }
     
     public static double rangoMenor(){
-        String rmenor = "";
+        String rmenor = "a";
         double d = 0;
         while (!rmenor.equals("")){
             System.out.print("Ingrese rango menor : ");
@@ -238,10 +253,10 @@ public class ProyectoParcial1 {
     }
     
     public static double rangoMayor(double menor){
-        String rmayor = "";
+        String rmayor = "a";
         double d = 0;
         while (!rmayor.equals("")){
-            System.out.print("Ingrese rango menor : ");
+            System.out.print("Ingrese rango mayor : ");
             rmayor = entrada.nextLine();
             if(isDouble(rmayor)){
                 d = Double.parseDouble(rmayor);
@@ -277,33 +292,37 @@ public class ProyectoParcial1 {
         return b;
     }
     
-    public static void crearNotDispositivo(){
+    public static boolean crearNotDispositivo(){
         if(existeObservable()){
-            String disp = "";
+            String disp = "a";
             ArrayList<Sensor> sensors = new ArrayList<>();
             while (!disp.equals("")){
                 System.out.print("Ingrese dispositivo, vacio si quiere dejar de ingresar: ");
                 disp = entrada.nextLine();
                 for(Sensor s: sensores){
+                    System.out.println(s.getId());
+                    System.out.println(disp);
+                    System.out.println(s.getId().length());
+                    System.out.println(disp.length());
                     if(s.getId().equals(disp)){
                         if(!sensors.contains(s)){
                             sensors.add(s);
+                            System.out.println("Se ha añadido correctamente a la notificación");
+                            disp= "";
+                            return true;
                         }
                         else{
                             System.out.println("Sensor Ingresado previamente");
                         }
                     }
-                    else{
-                        System.out.println("Id ingresado no existe");
-                    }
                 }
-            }
+            }System.out.println("Id ingresado no existe");
             NotificacionDispositivo n = new NotificacionDispositivo(sensors);
             usuarioActual.notificaciones.add(n);
         }
         else{
             System.out.println("No existe notificación observable para crear notificación por dispositivo");
-        }
+        }return false;
     }
     
     private static boolean existeObservable(){

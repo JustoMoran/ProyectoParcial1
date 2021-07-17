@@ -22,15 +22,17 @@ public class Observacion {
     public boolean motion;
     public double smoke;
     public Date date;
+    public double temp;
     
     //Constructor con 7 parámetros
-    public Observacion(double co, double humidity, boolean light,double lpg,boolean motion, double smoke,String date) throws ParseException{
+    public Observacion(double co, double humidity, boolean light,double lpg,boolean motion, double smoke,double temp, String date) throws ParseException{
         this.co=co;
         this.humidity=humidity;
         this.light=light;
         this.lpg=lpg;
         this.motion=motion;
         this.smoke=smoke;
+        this.temp=temp;
         this.date=new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(date);
     }
     

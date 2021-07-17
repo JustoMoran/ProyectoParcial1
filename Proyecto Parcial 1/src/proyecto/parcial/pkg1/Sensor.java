@@ -22,13 +22,14 @@ public class Sensor {
     
     public Sensor(String id) {
         this.id=id;
+        observaciones = new ArrayList<>();
     }
     
     public void obtenerObservaciones() throws IOException, ParseException{
         List<String> lineas = LeerFichero.leer("src/iot_telemetry_data_new.csv");
         for (String linea:lineas){
-            linea.replace('"', '\0');
-            String[] lineaC=linea.split(",");
+            String linea1 = linea.replace('"', '\0');
+            String[] lineaC=linea1.split(",");
             if(lineaC[1].equals(this.id)){
                 double co=Double.parseDouble(lineaC[2]);
                 double humidity=Double.parseDouble(lineaC[3]);
@@ -36,10 +37,11 @@ public class Sensor {
                 double lpg=Double.parseDouble(lineaC[5]);
                 boolean motion=Boolean.parseBoolean(lineaC[6]);
                 double smoke=Double.parseDouble(lineaC[7]);
-                String date=lineaC[8];
-                Observacion o = new Observacion(co,humidity,light,lpg,motion,smoke,date);
+                double temp = Double.parseDouble(lineaC[8]);
+                String date=lineaC[9];
+                Observacion o = new Observacion(co,humidity,light,lpg,motion,smoke,temp,date);
                 observaciones.add(o);
-            }   
+            }
         } 
     }
 
