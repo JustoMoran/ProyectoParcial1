@@ -9,15 +9,25 @@ package proyecto.parcial.pkg1;
  *
  * @author homar
  */
-public class NotificacionObservable  extends Notificacion{
+public  class  NotificacionObservable  extends Notificacion{
     
-    double moderado;
-    double peligro;
+    Etiqueta etiqueta;
     
-    public NotificacionObservable(double moderado, double peligro){
-        this.moderado = moderado;
-        this.peligro = peligro;
+    public NotificacionObservable(Etiqueta etiqueta){
+        this.etiqueta =  etiqueta;
+
     }
+
+    public Etiqueta getEtiqueta() {
+        return etiqueta;
+    }
+
+    public void setEtiqueta(Etiqueta etiqueta) {
+        this.etiqueta = etiqueta;
+    }
+
+    
+    
 
     @Override
     public void mostrarNotificacion() {

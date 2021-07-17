@@ -16,6 +16,7 @@ public class NotificacionDispositivo extends Notificacion{
     public ArrayList<Sensor> sensores;
 
     public NotificacionDispositivo(ArrayList<Sensor> sensores) {
+        super();
         this.sensores = sensores;
     }
     

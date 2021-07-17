@@ -156,7 +156,7 @@ public class ProyectoParcial1 {
                 
             }
             else if(notif.equals("2")){
-                generarNotDispositivo();
+                crearNotDispositivo();
             }
         }
     }
@@ -168,7 +168,116 @@ public class ProyectoParcial1 {
         
     }
     
-    public static void generarNotDispositivo(){
+    public static void crearNotObservable(){
+        String obs = "";
+        System.out.print("1.-Co\n2.-Humidity\n3.-Light\n4.-Lpg\n5.-Motion\n6.-Smoke\n7.-Temperature\nIngrese opcion: ");
+        obs = entrada.nextLine(); 
+        NotificacionObservable not;
+        double mayor;
+        double menor;
+        switch (obs) {
+            case "1":
+                System.out.println("La variable Co usa atributos de verdad, por lo que se pide ingresar un rango numerico");
+                menor = rangoMenor();
+                mayor = rangoMayor(menor);
+                Etiqueta co =  new EtiquetaRango(mayor,menor,"Co",1);
+                not = new NotificacionObservable(co);
+                usuarioActual.notificaciones.add(not);
+                
+                break;
+            case "2":
+                System.out.println("La variable Humidity usa atributos de verdad, por lo que se pide ingresar un rango numerico");
+                menor = rangoMenor();
+                mayor = rangoMayor(menor);
+                Etiqueta humidity =  new EtiquetaRango(mayor,menor,"Humidity",1);
+
+                break;
+            case "3":
+                System.out.println("La variable Light usa atributos de verdad, por lo que se pide ingresar datos de verdad");
+                Boolean bo = observableBoolean();
+                Etiqueta luz =  new EtiquetaBool(bo,"Light",1);
+                not = new NotificacionObservable(luz);
+                usuarioActual.notificaciones.add(not);
+                break;
+            case "4":
+                System.out.println("La variable Lpg usa atributos de verdad, por lo que se pide ingresar un rango numerico");
+                break;
+            case "5":
+                System.out.println("La variable Motion usa atributos de verdad, por lo que se pide ingresar datos de verdad");
+                Boolean b = observableBoolean();
+                Etiqueta motion =  new EtiquetaBool(b,"Motion",1);
+                not = new NotificacionObservable(motion);
+                usuarioActual.notificaciones.add(not);
+                break;
+            case "6":
+                System.out.println("La variable Smoke usa atributos de verdad, por lo que se pide ingresar un rango numerico");
+
+                break;
+            case "7":
+                System.out.println("La variable Temperature usa atributos de verdad, por lo que se pide ingresar un rango numerico");
+
+                break;
+            default:
+                System.out.println("Opcion ingresada no existente");
+                break;
+        }   
+    }
+    
+    public static double rangoMenor(){
+        String rmenor = "";
+        double d = 0;
+        while (!rmenor.equals("")){
+            System.out.print("Ingrese rango menor : ");
+            rmenor = entrada.nextLine();
+            if(isDouble(rmenor)){
+                d = Double.parseDouble(rmenor);
+                rmenor="";
+            }
+        }
+        return d;
+    }
+    
+    public static double rangoMayor(double menor){
+        String rmayor = "";
+        double d = 0;
+        while (!rmayor.equals("")){
+            System.out.print("Ingrese rango menor : ");
+            rmayor = entrada.nextLine();
+            if(isDouble(rmayor)){
+                d = Double.parseDouble(rmayor);
+                if(d>menor){
+                    rmayor="";
+                }else{
+                    System.out.println("El numero perteneciente a rango mayor no cumple con ser mayor al rango menor");
+                }
+            }
+        }
+        return d;
+    }
+    
+    public static boolean observableBoolean(){
+        Boolean b =true;
+        String bool = "";
+        while (!bool.equals("")){
+            System.out.print("1.-True\n2.-False\nIngrese opcion: ");
+            bool = entrada.nextLine();
+            switch (bool) {
+                case "1":
+                    bool = "";
+                    break;
+                case "2":
+                    b = false;
+                    bool = "";
+                    break;
+                default:
+                    System.out.println("Opcion no valida ingrese nuevamente");
+                    break;
+            }
+        }
+        return b;
+    }
+    
+    public static void crearNotDispositivo(){
         if(existeObservable()){
             String disp = "";
             ArrayList<Sensor> sensors = new ArrayList<>();
@@ -192,6 +301,9 @@ public class ProyectoParcial1 {
             NotificacionDispositivo n = new NotificacionDispositivo(sensors);
             usuarioActual.notificaciones.add(n);
         }
+        else{
+            System.out.println("No existe notificación observable para crear notificación por dispositivo");
+        }
     }
     
     private static boolean existeObservable(){
@@ -202,5 +314,15 @@ public class ProyectoParcial1 {
         }
         return false;
     }
+    
+    public static boolean isDouble(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    
         
 }
