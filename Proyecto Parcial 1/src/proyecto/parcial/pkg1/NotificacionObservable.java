@@ -9,7 +9,7 @@ package proyecto.parcial.pkg1;
  *
  * @author Ricardo
  */
-public  class  NotificacionObservable  extends Notificacion{
+public  class  NotificacionObservable  extends Notificacion implements Comparable<NotificacionObservable>{
     
     Etiqueta etiqueta;
     
@@ -53,5 +53,20 @@ public  class  NotificacionObservable  extends Notificacion{
     public void mostrarNotificacion() {
         System.out.println(etiqueta);
     }
+
+    @Override
+    public int compareTo(NotificacionObservable o) {
+        if(o.getEtiqueta().getPrioridad()>this.etiqueta.getPrioridad()){
+            return -1;
+        }
+        else if(o.getEtiqueta().getPrioridad()==this.etiqueta.getPrioridad()){
+            return 0;
+        }
+        else {
+            return 1;
+        }
+        
+    }
+    
     
 }

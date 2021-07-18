@@ -9,7 +9,7 @@ package proyecto.parcial.pkg1;
  *
  * @author Ricardo
  */
-public class Etiqueta implements Comparable<Etiqueta> {
+public class Etiqueta{
     
     private String descripcion;
     private int prioridad;
@@ -42,16 +42,7 @@ public class Etiqueta implements Comparable<Etiqueta> {
     
     
 
-    @Override
-    public int compareTo(Etiqueta o) {
-        if(o.getPrioridad()>prioridad){
-            return -1;
-        }else if(o.getPrioridad()==prioridad){
-            return 0;
-        }else{
-            return 1;
-        }
-    }
+    
    
     
     

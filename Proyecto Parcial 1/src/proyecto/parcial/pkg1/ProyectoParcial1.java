@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.*;
+import java.util.Collections;
 /**
  *
  * @author alber
@@ -444,15 +445,21 @@ public class ProyectoParcial1 {
                }
             }
         }
-        System.out.println("El tam es " +ids.size());
         FileWriter fichero = null;
         PrintWriter pw = null;
         try{
-            fichero = new FileWriter("src/data.txt");
-            pw = new PrintWriter(fichero);
+            ArrayList<NotificacionObservable> observables = new ArrayList<>();
             for(Notificacion n: usuarioActual.getNotificaciones()){
                 if(n instanceof NotificacionObservable && n.estadoActivo){
-                    NotificacionObservable  nobs= (NotificacionObservable) n;
+                    NotificacionObservable  obser= (NotificacionObservable) n;
+                    observables.add(obser);
+                }
+            }
+            Collections.sort(observables);
+            System.out.println(observables.size());
+            fichero = new FileWriter("src/data.txt");
+            pw = new PrintWriter(fichero);
+            for(NotificacionObservable nobs: observables){
                     pw.println(nobs);
                     for(String id: ids){
                         for(Sensor s: sensores){
@@ -469,8 +476,7 @@ public class ProyectoParcial1 {
                         }
                     }
                 }
-            }
-        }
+        }   
          catch (Exception e) {
             e.printStackTrace();
         } finally {
