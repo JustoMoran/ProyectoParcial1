@@ -46,5 +46,10 @@ public class NotificacionDispositivo extends Notificacion{
         }
         
     }
+
+    @Override
+    public String toString() {
+        return "NotificacionDispositivo{" + "sensores=" + sensores + '}';
+    }
     
 }

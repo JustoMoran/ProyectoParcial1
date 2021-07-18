@@ -100,6 +100,7 @@ public class ProyectoParcial1 {
                     generarNotificacion();
                     break;
                 case "3":
+                    desactivarNotificacion();
                     break;
                 default:
                     break;
@@ -175,6 +176,7 @@ public class ProyectoParcial1 {
     }
     
     public static void desactivarNotificacion(){
+        usuarioActual.desactivarNotificaciones();
         
     }
     
@@ -317,25 +319,21 @@ public class ProyectoParcial1 {
                 System.out.print("Ingrese dispositivo, vacio si quiere dejar de ingresar: ");
                 disp = entrada.nextLine();
                 for(Sensor s: sensores){
-                    System.out.println(s.getId());
-                    System.out.println(disp);
-                    System.out.println(s.getId().length());
-                    System.out.println(disp.length());
                     if(s.getId().equals(disp)){
                         if(!sensors.contains(s)){
                             sensors.add(s);
                             System.out.println("Se ha añadido correctamente a la notificación");
                             disp= "";
-                            return true;
                         }
                         else{
                             System.out.println("Sensor Ingresado previamente");
                         }
                     }
                 }
-            }System.out.println("Id ingresado no existe");
+            }
             NotificacionDispositivo n = new NotificacionDispositivo(sensors);
             usuarioActual.getNotificaciones().add(n);
+            
         }
         else{
             System.out.println("No existe notificación observable para crear notificación por dispositivo");
@@ -384,7 +382,7 @@ public class ProyectoParcial1 {
     public static Date pedirFechaMayor(Date menor){
         Date testDate = null;
         while(true){
-            System.out.print("Introduzca la fecha menor con formato dd/mm/yyyy: ");
+            System.out.print("Introduzca la fecha mayor con formato dd/mm/yyyy: ");
             String fecha = entrada.nextLine();
             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             String date = fecha;
@@ -434,29 +432,31 @@ public class ProyectoParcial1 {
         }
         for(Notificacion n: usuarioActual.getNotificaciones()){
             if(n instanceof NotificacionDispositivo){
-                System.out.println("a");
+                ids.clear();
+            }
+        }
+        for(Notificacion n: usuarioActual.getNotificaciones()){
+            if(n instanceof NotificacionDispositivo){
                for(Sensor s: ((NotificacionDispositivo) n).getSensores() ){
-                   System.out.println("a");
                    if(!ids.contains(s.getId())){
-                       System.out.println("a");
                        ids.add(s.getId());
                    }
                }
             }
         }
+        System.out.println("El tam es " +ids.size());
         FileWriter fichero = null;
         PrintWriter pw = null;
         try{
             fichero = new FileWriter("src/data.txt");
             pw = new PrintWriter(fichero);
             for(Notificacion n: usuarioActual.getNotificaciones()){
-                if(n instanceof NotificacionObservable){
+                if(n instanceof NotificacionObservable && n.estadoActivo){
                     NotificacionObservable  nobs= (NotificacionObservable) n;
                     pw.println(nobs);
                     for(String id: ids){
                         for(Sensor s: sensores){
                             if(s.getId().equals(id)){
-                                System.out.println(id);
                                 for(Observacion obs: s.getObservaciones()){
                                     if(menor.before(obs.date) && mayor.after(obs.date)){
                                         if(obs.determinarObservacion(nobs.getEtiqueta())){

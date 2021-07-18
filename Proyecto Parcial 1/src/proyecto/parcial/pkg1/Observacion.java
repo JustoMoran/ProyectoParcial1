@@ -55,13 +55,13 @@ public class Observacion {
                 return rango.rangoMayor > co && co > rango.rangoMenor;
             case "Light":
                 bool = (EtiquetaBool) etiqueta;
-                return light && bool.valor;
+                return booleanCast(light ,bool.valor);
             case "Lpg":
                 rango = (EtiquetaRango) etiqueta;
                 return rango.rangoMayor > co && co > rango.rangoMenor;
             case "Motion":
                 bool = (EtiquetaBool) etiqueta;
-                return motion && bool.valor;
+                return booleanCast(motion ,bool.valor);
             case "Smoke":
                 rango = (EtiquetaRango) etiqueta;
                 return rango.rangoMayor > co && co > rango.rangoMenor;
@@ -70,6 +70,16 @@ public class Observacion {
                 return rango.rangoMayor > co && co > rango.rangoMenor;
             default:
                 break;
+        }
+        return false;
+    }
+    
+    public boolean booleanCast(Boolean b1,Boolean b2){
+        if((b1 == true && b2 == true) || (b1==false && b2==false)){
+            return true;
+        }
+        else if((b1== true && b2 == false) || (b1== false && b2==true)){
+            return false;
         }
         return false;
     }

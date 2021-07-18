@@ -29,7 +29,21 @@ public  class  NotificacionObservable  extends Notificacion{
 
     @Override
     public String toString() {
-        return "NotificacionObservable: " + etiqueta ;
+        return "NotificacionObservable: " + etiqueta +" con prioridad: " + obtenerPrioridad(this.etiqueta.getPrioridad()) ;
+    }
+    
+    private String obtenerPrioridad(int p){
+        if(p == 1){
+            return "Alta";
+        }
+        else if(p == 2){
+            return "Media";
+        }
+        else if(p == 3){
+            return "Baja";
+        }
+        return "";
+        
     }
 
     
