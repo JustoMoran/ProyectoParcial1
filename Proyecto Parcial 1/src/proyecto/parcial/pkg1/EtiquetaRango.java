@@ -23,7 +23,7 @@ public class EtiquetaRango extends Etiqueta {
 
     @Override
     public String toString() {
-        return "EtiquetaRango{" + "rangoMayor=" + rangoMayor + ", rangoMenor=" + rangoMenor + '}';
+        return "Tipo: " + this.getDescripcion() + " con un rangoMayor=" + rangoMayor + ", rangoMenor=" + rangoMenor + '}';
     }
    
    

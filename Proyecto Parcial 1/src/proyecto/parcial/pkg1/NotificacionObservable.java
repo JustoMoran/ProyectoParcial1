@@ -27,6 +27,11 @@ public  class  NotificacionObservable  extends Notificacion{
         this.etiqueta = etiqueta;
     }
 
+    @Override
+    public String toString() {
+        return "NotificacionObservable: " + etiqueta ;
+    }
+
     
     
 

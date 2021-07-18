@@ -20,7 +20,7 @@ public class EtiquetaBool extends Etiqueta{
 
     @Override
     public String toString() {
-        return "EtiquetaBool{" + "valor=" + valor + '}';
+        return "Tipo: " + this.getDescripcion()  + " con valor=" + valor + '}';
     }
     
     

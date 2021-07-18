@@ -97,6 +97,7 @@ public class ProyectoParcial1 {
                     programarNotificacion();
                     break;
                 case "2":
+                    generarNotificacion();
                     break;
                 case "3":
                     break;
@@ -167,6 +168,7 @@ public class ProyectoParcial1 {
     public static void generarNotificacion(){
         Date menor = pedirFechaMenor();
         Date mayor = pedirFechaMayor(menor);
+        generarReporte(menor,mayor);
         
         
         
@@ -287,7 +289,7 @@ public class ProyectoParcial1 {
     
     public static boolean observableBoolean(){
         Boolean b =true;
-        String bool = "";
+        String bool = "a";
         while (!bool.equals("")){
             System.out.print("1.-True\n2.-False\nIngrese opcion: ");
             bool = entrada.nextLine();
@@ -333,7 +335,7 @@ public class ProyectoParcial1 {
                 }
             }System.out.println("Id ingresado no existe");
             NotificacionDispositivo n = new NotificacionDispositivo(sensors);
-            usuarioActual.notificaciones.add(n);
+            usuarioActual.getNotificaciones().add(n);
         }
         else{
             System.out.println("No existe notificación observable para crear notificación por dispositivo");
@@ -341,7 +343,7 @@ public class ProyectoParcial1 {
     }
     
     private static boolean existeObservable(){
-        for(Notificacion n: usuarioActual.notificaciones){
+        for(Notificacion n: usuarioActual.getNotificaciones()){
             if(n instanceof NotificacionObservable){
                 return true;
             }
@@ -361,7 +363,7 @@ public class ProyectoParcial1 {
     public static Date pedirFechaMenor(){
         Date testDate = null;
         while(true){
-            System.out.println("Introduzca la fecha menor con formato dd/mm/yyyy");
+            System.out.print("Introduzca la fecha menor con formato dd/mm/yyyy: ");
             String fecha = entrada.nextLine();
             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             String date = fecha;
@@ -382,13 +384,13 @@ public class ProyectoParcial1 {
     public static Date pedirFechaMayor(Date menor){
         Date testDate = null;
         while(true){
-            System.out.println("Introduzca la fecha menor con formato dd/mm/yyyy");
+            System.out.print("Introduzca la fecha menor con formato dd/mm/yyyy: ");
             String fecha = entrada.nextLine();
             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             String date = fecha;
             try{
                 testDate = df.parse(date);
-                System.out.println("Ahora hemos creado un objeto date con la fecha indicada, "+testDate);
+                System.out.print("Ahora hemos creado un objeto date con la fecha indicada, "+testDate);
             } catch (Exception e){ System.out.println("invalid format");}
 
             if (!df.format(testDate).equals(date)){
@@ -426,11 +428,17 @@ public class ProyectoParcial1 {
     }
     
     public static void generarReporte(Date menor, Date mayor){
-        ArrayList<String> ids = new ArrayList<>() ;
+        ArrayList<String> ids = new ArrayList<>();
+        for(Sensor s: sensores){
+            ids.add(s.getId());
+        }
         for(Notificacion n: usuarioActual.getNotificaciones()){
             if(n instanceof NotificacionDispositivo){
+                System.out.println("a");
                for(Sensor s: ((NotificacionDispositivo) n).getSensores() ){
+                   System.out.println("a");
                    if(!ids.contains(s.getId())){
+                       System.out.println("a");
                        ids.add(s.getId());
                    }
                }
@@ -448,8 +456,14 @@ public class ProyectoParcial1 {
                     for(String id: ids){
                         for(Sensor s: sensores){
                             if(s.getId().equals(id)){
+                                System.out.println(id);
                                 for(Observacion obs: s.getObservaciones()){
-                                    
+                                    if(menor.before(obs.date) && mayor.after(obs.date)){
+                                        if(obs.determinarObservacion(nobs.getEtiqueta())){
+                                            System.out.println(obs);
+                                            pw.println(obs);
+                                        }
+                                    }
                                 }
                             }
                         }
