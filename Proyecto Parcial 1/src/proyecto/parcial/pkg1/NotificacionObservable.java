@@ -13,6 +13,7 @@ public  class  NotificacionObservable  extends Notificacion{
     
     Etiqueta etiqueta;
     
+    
     public NotificacionObservable(Etiqueta etiqueta){
         this.etiqueta =  etiqueta;
 

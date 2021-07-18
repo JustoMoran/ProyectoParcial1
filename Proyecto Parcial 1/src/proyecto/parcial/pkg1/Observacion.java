@@ -42,4 +42,35 @@ public class Observacion {
     public String toString(){
         return "Co: "+co+"; humidity: "+humidity+"; light: "+light+"; lpg: "+lpg+"; motion: "+motion+"; smoke: "+smoke+"; fecha: "+date;
     }
+    
+    public boolean determinarObservacion(Etiqueta etiqueta){
+        EtiquetaRango rango;
+        EtiquetaBool bool;
+        switch (etiqueta.getDescripcion()) {
+            case "Co":
+                rango = (EtiquetaRango) etiqueta;
+                return rango.rangoMayor > co && co > rango.rangoMenor;
+            case "Humidity":
+                rango = (EtiquetaRango) etiqueta;
+                return rango.rangoMayor > co && co > rango.rangoMenor;
+            case "Light":
+                bool = (EtiquetaBool) etiqueta;
+                return light && bool.valor;
+            case "Lpg":
+                rango = (EtiquetaRango) etiqueta;
+                return rango.rangoMayor > co && co > rango.rangoMenor;
+            case "Motion":
+                bool = (EtiquetaBool) etiqueta;
+                return motion && bool.valor;
+            case "Smoke":
+                rango = (EtiquetaRango) etiqueta;
+                return rango.rangoMayor > co && co > rango.rangoMenor;
+            case "Temperature":
+                rango = (EtiquetaRango) etiqueta;
+                return rango.rangoMayor > co && co > rango.rangoMenor;
+            default:
+                break;
+        }
+        return false;
+    }
 }

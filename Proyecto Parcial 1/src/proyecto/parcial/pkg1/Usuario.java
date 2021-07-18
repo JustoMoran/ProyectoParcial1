@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.util.Collections;
 
 /**
  *
@@ -16,7 +17,8 @@ import java.text.ParseException;
 public class Usuario {
     
     private String idUsuario;
-    public ArrayList<Notificacion> notificaciones=new ArrayList<>();
+    private ArrayList<Notificacion> notificaciones=new ArrayList<>();
+    
     
     //Constructor de una variable
     public Usuario (String idUsuario){
@@ -43,6 +45,24 @@ public class Usuario {
     public boolean eliminarNotificacion(Notificacion not){
         return this.notificaciones.remove(not);
     }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public ArrayList<Notificacion> getNotificaciones() {
+        return notificaciones;
+    }
+
+    public void setNotificaciones(ArrayList<Notificacion> notificaciones) {
+        this.notificaciones = notificaciones;
+    }
+    
+    
     
     @Override
     public boolean equals(Object o){

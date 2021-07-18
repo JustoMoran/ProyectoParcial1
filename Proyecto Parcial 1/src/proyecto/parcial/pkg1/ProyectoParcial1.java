@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.*;
 /**
  *
  * @author alber
@@ -165,6 +166,8 @@ public class ProyectoParcial1 {
     }
     public static void generarNotificacion(){
         Date menor = pedirFechaMenor();
+        Date mayor = pedirFechaMayor(menor);
+        
         
         
     }
@@ -189,7 +192,7 @@ public class ProyectoParcial1 {
                 priority = pedirPrioridad();
                 Etiqueta co =  new EtiquetaRango(mayor,menor,"Co",priority);
                 not = new NotificacionObservable(co);
-                usuarioActual.notificaciones.add(not);               
+                usuarioActual.getNotificaciones().add(not);               
                 break;
             case "2":
                 System.out.println("La variable Humidity usa atributos de verdad, por lo que se pide ingresar un rango numerico decimal");
@@ -198,7 +201,7 @@ public class ProyectoParcial1 {
                 priority = pedirPrioridad();
                 Etiqueta humidity =  new EtiquetaRango(mayor,menor,"Humidity",priority);
                 not = new NotificacionObservable(humidity);
-                usuarioActual.notificaciones.add(not);
+                usuarioActual.getNotificaciones().add(not);
 
                 break;
             case "3":
@@ -207,7 +210,7 @@ public class ProyectoParcial1 {
                 priority = pedirPrioridad();
                 Etiqueta luz =  new EtiquetaBool(bo,"Light",priority);
                 not = new NotificacionObservable(luz);
-                usuarioActual.notificaciones.add(not);
+                usuarioActual.getNotificaciones().add(not);
                 break;
             case "4":
                 System.out.println("La variable Lpg usa atributos de verdad, por lo que se pide ingresar un rango numerico decimal");
@@ -216,7 +219,7 @@ public class ProyectoParcial1 {
                 priority = pedirPrioridad();
                 Etiqueta lpg =  new EtiquetaRango(mayor,menor,"Lpg",priority);
                 not = new NotificacionObservable(lpg);
-                usuarioActual.notificaciones.add(not);
+                usuarioActual.getNotificaciones().add(not);
                 break;
             case "5":
                 System.out.println("La variable Motion usa atributos de verdad, por lo que se pide ingresar datos de verdad");
@@ -224,7 +227,7 @@ public class ProyectoParcial1 {
                 priority = pedirPrioridad();
                 Etiqueta motion =  new EtiquetaBool(b,"Motion",priority);
                 not = new NotificacionObservable(motion);
-                usuarioActual.notificaciones.add(not);
+                usuarioActual.getNotificaciones().add(not);
                 break;
             case "6":
                 System.out.println("La variable Smoke usa atributos de verdad, por lo que se pide ingresar un rango numerico decimal");
@@ -233,7 +236,7 @@ public class ProyectoParcial1 {
                 priority = pedirPrioridad();
                 Etiqueta smoke =  new EtiquetaRango(mayor,menor,"Smoke",priority);
                 not = new NotificacionObservable(smoke);
-                usuarioActual.notificaciones.add(not);
+                usuarioActual.getNotificaciones().add(not);
                 break;
             case "7":
                 System.out.println("La variable Temperature usa atributos de verdad, por lo que se pide ingresar un rango numerico decimal");
@@ -242,7 +245,7 @@ public class ProyectoParcial1 {
                 priority = pedirPrioridad();
                 Etiqueta temperature =  new EtiquetaRango(mayor,menor,"Temperature",priority);
                 not = new NotificacionObservable(temperature);
-                usuarioActual.notificaciones.add(not);
+                usuarioActual.getNotificaciones().add(not);
                 break;
             default:
                 System.out.println("Opcion ingresada no existente");
@@ -408,17 +411,67 @@ public class ProyectoParcial1 {
         String prioridad = "a";
         while (!prioridad.equals("")){
             System.out.print("1.-Prioridad Alta\n2.-Prioridad media\n3.-Prioridad Baja\nIngrese opcion de prioridad: ");
+            prioridad= entrada.nextLine();
             if(prioridad.equals("1")){
                 return 1;
             }
             else if(prioridad.equals("2")){
                 return 2;
             }
-            else if(prioridad.equals('3')){
+            else if(prioridad.equals("3")){
                 return 3;
             }
         }
         return 0;
+    }
+    
+    public static void generarReporte(Date menor, Date mayor){
+        ArrayList<String> ids = new ArrayList<>() ;
+        for(Notificacion n: usuarioActual.getNotificaciones()){
+            if(n instanceof NotificacionDispositivo){
+               for(Sensor s: ((NotificacionDispositivo) n).getSensores() ){
+                   if(!ids.contains(s.getId())){
+                       ids.add(s.getId());
+                   }
+               }
+            }
+        }
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try{
+            fichero = new FileWriter("src/data.txt");
+            pw = new PrintWriter(fichero);
+            for(Notificacion n: usuarioActual.getNotificaciones()){
+                if(n instanceof NotificacionObservable){
+                    NotificacionObservable  nobs= (NotificacionObservable) n;
+                    pw.println(nobs);
+                    for(String id: ids){
+                        for(Sensor s: sensores){
+                            if(s.getId().equals(id)){
+                                for(Observacion obs: s.getObservaciones()){
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+         catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           // Nuevamente aprovechamos el finally para 
+           // asegurarnos que se cierra el fichero.
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+
+        
+
     }
     
         

@@ -13,11 +13,27 @@ import java.util.ArrayList;
  */
 public class NotificacionDispositivo extends Notificacion{
     
-    public ArrayList<Sensor> sensores;
+    private ArrayList<Sensor> sensores;
 
     public NotificacionDispositivo(ArrayList<Sensor> sensores) {
         super();
         this.sensores = sensores;
+    }
+
+    public ArrayList<Sensor> getSensores() {
+        return sensores;
+    }
+
+    public void setSensores(ArrayList<Sensor> sensores) {
+        this.sensores = sensores;
+    }
+
+    public boolean isEstadoActivo() {
+        return estadoActivo;
+    }
+
+    public void setEstadoActivo(boolean estadoActivo) {
+        this.estadoActivo = estadoActivo;
     }
     
     

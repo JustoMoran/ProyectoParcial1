@@ -9,10 +9,10 @@ package proyecto.parcial.pkg1;
  *
  * @author Ricardo
  */
-public abstract class Etiqueta {
+public class Etiqueta implements Comparable<Etiqueta> {
     
-    String descripcion;
-    int prioridad;
+    private String descripcion;
+    private int prioridad;
 
     public Etiqueta(String descripcion, int prioridad) {
         this.descripcion = descripcion;
@@ -23,7 +23,36 @@ public abstract class Etiqueta {
     public String toString() {
         return "Etiqueta{" + "descripcion=" + descripcion + ", prioridad=" + prioridad + '}';
     }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public int getPrioridad() {
+        return prioridad;
+    }
+
+    public void setPrioridad(int prioridad) {
+        this.prioridad = prioridad;
+    }
     
+    
+
+    @Override
+    public int compareTo(Etiqueta o) {
+        if(o.getPrioridad()>prioridad){
+            return -1;
+        }else if(o.getPrioridad()==prioridad){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
+   
     
     
     
